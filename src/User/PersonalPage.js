@@ -13,6 +13,8 @@ import styled from 'styled-components';
 import EditUserDialog from './EditUserDialog'
 import CreateRequestDialog from './CreateRequestDialog';
 import instance from '../instance';
+import Logo from '../Image/Logo.png'
+import User from '../Image/user.png'
 const TabWrapper = styled.div`
     display:flex;
     flex-direction: row;
@@ -35,7 +37,7 @@ const Div = styled.div`
 const ContentBox = styled.div`
     display:flex;
     flex-direction: column;
-    width: 30%;
+    width: 70%;
     height: 60%;
     justify-content: center;
     align-items: center;
@@ -43,11 +45,38 @@ const ContentBox = styled.div`
     border-radius: 10%;
     background-color: white;
     opacity: 0.8;
-    overflow-y:auto;
 `;
+const Header = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 5%
+  margin: 5px;
+`
+const LogoDiv = styled.div`
+  width: 6%;
+  height: 10vh;
+  display:flex;
+  margin: 1em;
+`
+const UserIconDiv = styled.div`
+  width: 6%;
+  height: 10vh;
+  display:flex;
+  margin: 1em;
+  '&:hover': {
+    outline:'solid',
+  },  
+`
+const imgStyle = {
+  width: '80%',
+  height: 'auto', 
+}
 
 const TabListStyle = {
-  backgroundColor: "white",
+  backgroundColor: 'white',
   opacity: "0.8"
 }
 function TabPanel(props) {
@@ -121,12 +150,24 @@ const PersonalPage = (props)=>{
       setPosts(data) ;
     } , [])
     return (
-        <Wrapper>
-          <Title>
-            <Typography variant="h4" style={{ color: 'white' }}>
-              <h1>Personal Page</h1>
-            </Typography>
-          </Title>
+        <Wrapper style={{height:'100%'}}>
+          <Header>
+            <LogoDiv>
+              <img  src={Logo} alt="Welcome to Teamder!" onClick={() => props.navigate(`/AllPosts`)} styled={imgStyle}/>
+            </LogoDiv>
+            <Title>
+              <Typography variant="h4" style={{ color: 'white' }}>
+                <h1>Personal Page</h1>
+              </Typography>
+            </Title>
+            {userData === null ?
+              <div></div>: 
+              <UserIconDiv>
+                  <img src={User} alt="user" onClick={() => props.navigate(`/user/${props.myId}`)} style={imgStyle}/>
+                  <p>{userData.name}</p>
+              </UserIconDiv>
+            }
+          </Header>
           <TabWrapper>
             <Tabs variant="fullWidth" style={TabListStyle} value={value} onChange={handleTabsChange}>
               <Tab label="Personal Information" {...a11yProps(0)} />
@@ -151,7 +192,8 @@ const PersonalPage = (props)=>{
             <Div>
               <Button  
                 fullWidth="true"
-                variant="contained" 
+                variant="contained"
+                color='primary' 
                 onClick={()=>setEditUserDialogOpen(true)} 
                 style={myPersonalPage ? {display:'flex'} : {display:'none'}}
               >Edit Personal Information</Button>
@@ -160,6 +202,7 @@ const PersonalPage = (props)=>{
               <Button  
                 fullWidth="true"
                 variant="contained" 
+                color='primary' 
                 onClick={()=>setCreateRequestDialogOpen(true)} 
                 style={myPersonalPage ? {display:'flex'} : {display:'none'}}
               >Create new request</Button>
