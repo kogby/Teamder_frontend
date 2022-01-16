@@ -8,6 +8,10 @@ import { Button } from '@mui/material';
 import styled from 'styled-components';
 import Logo from '../Image/Logo.png'
 import User from '../Image/user.png'
+import './RequestPage.css'
+import { textAlign } from '@mui/system';
+import { TextField } from '@material-ui/core';
+import Send from './send.png'
 const Title =styled.div`
     display: flex;
     flex-direction: row;
@@ -18,7 +22,7 @@ const Title =styled.div`
 const ContentBox = styled.div`
     display:flex;
     flex-direction: column;
-    width: 60%;
+    width: 80%;
     height: 100vh;
     justify-content: flex-start;
     align-items: center;
@@ -32,7 +36,7 @@ const Row = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    width: 90%;
+    width: 70%;
     height: 10%
     margin: 10px;
     outline: solid;
@@ -48,7 +52,7 @@ const ContextDiv = styled.div`
     margin: 1em;
 `;
 const ContextBox = styled(Box)`
-  width:90%;
+  width:70%;
   height:50%;
   border-radius: 10px;
   margin: 5px;
@@ -59,17 +63,16 @@ const Footer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
-  width: 90%;
+  justify-content: flex-end;
+  width: 70%;
   height: 5%
   margin: 10px;
-  outline: solid;
 `
 const Header = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 100%;
   height: 5%
   margin: 5px;
@@ -84,19 +87,22 @@ const UserIconDiv = styled.div`
   width: 6%;
   height: 10vh;
   display:flex;
+  margin: 1em;
   flex-direction:column;
   justify-content:center;
-  align-items: center;
-  margin: 1em;
+  align-items:center;
+  color:white
 `
 const imgStyle = {
-  width: '80%',
-  height: 'auto', 
+    width: '80%',
+    height: 'auto', 
 }
 const RequestPage = ({navigate , myId , displayAlert}) => {
     const { requestId } = useParams();
     const [requestData, setRequestData] = useState(null);
     const [userData, setUserData] = useState(null);
+    const [requestCommentData , setRequestCommentData] = useState(null);
+    const [content , setContent] = useState("") ;
     useEffect(async() => {
       const {
         data: {message,data},
@@ -120,35 +126,77 @@ const RequestPage = ({navigate , myId , displayAlert}) => {
         },
       });
       setUserData(data);
+    }, []) 
+
+    /////////////////////////////////////////////////////////////////////////
+    useEffect(async() => {
+      const {
+        data: {message , data},
+      } = await instance.get(`/comment/request/${requestId}/comment`, {
+        params: {
+          requestId: requestId,
+        },
+      });
+      setRequestCommentData(data);
+      console.log(message) ;
     }, [])
+
+    const handleComment = async() => {
+      if(!content){
+        displayAlert("error" , "Please fill in comment!");
+        return;
+      }
+      else{
+        const {
+            data: {message},
+        } = await instance.post('/comment/createComment',{
+          requestId,
+          myId,
+          content
+      });
+      displayAlert("success" , "Create comment success!");
+      setContent("");
+    }
+  }
+  
+
+  /////////////////////////////////////////////////////////////////////////
 
 
     return(
-      <Wrapper>
+      <Wrapper style={{height:'100%'}}>
           {requestData === null ?
           <div></div>:
           <>
             <Header>
               <LogoDiv>
-                <img  src={Logo} alt="Welcome to Teamder!" onClick={() => navigate(`/AllPosts`)} styled={imgStyle}/>
+                <img  src={Logo} alt="Welcome to Teamder!" onClick={() => navigate(`/AllPosts`)} styled={imgStyle} />
               </LogoDiv>
               <Title>
                 <Typography variant="h4" style={{ color: 'white',width:'80%',justifyContent:'center',display:'flex'}}>
-                    <h1>{requestData.title}</h1>
+                    <h1>Teamder Is Your Best Friend</h1>
                 </Typography>
               </Title>
-              <Typography  style={{ color: 'white',width:'20%' ,outline:'solid',justifyContent:'center',display:'flex'}}>
-                <p>{requestData.nowPeople}/{requestData.maxPeople}<br></br>現有組員/需要組員</p>
-              </Typography>
+                <Typography  style={{ color: 'white',width:'7%' ,outline:'solid',justifyContent:'center',display:'flex'}}>
+                  <p>{requestData.nowPeople}/{requestData.maxPeople}<br></br>現有組員/需要組員</p>
+                </Typography>
               {userData === null ?
                 <div></div>: 
                 <UserIconDiv>
-                  <img src={User} alt="user" onClick={() => navigate(`/user/${myId}`)} style={imgStyle}/>
-                  <p>{userData.name}</p>
+                    <img src={User} alt="user" onClick={() => navigate(`/user/${myId}`)} style={imgStyle}/>
+                    <p>{userData.name}</p>
                 </UserIconDiv>
               }
             </Header>
             <ContentBox>
+              <Row>
+                <ItemDiv>
+                    <Typography  style={{ color: '#212121' }}>標題:</Typography>
+                </ItemDiv>
+                <ContextDiv>
+                    <Typography  style={{ color: '#212121' }}>{requestData.title}</Typography>
+                </ContextDiv>
+              </Row>
               <Row>
                 <ItemDiv>
                     <Typography  style={{ color: '#212121' }}>Class Name:</Typography>
@@ -175,75 +223,46 @@ const RequestPage = ({navigate , myId , displayAlert}) => {
               </Row>
               <ContextBox>
                 <Typography  style={{ color: '#212121' }}>
-                  <p>{requestData.context}</p>
+                  <p>內文:  {requestData.context}</p>
                 </Typography>
               </ContextBox>
               <Footer>
                 <Button variant='contained' color='primary' onClick={()=>{handleApply()}}>apply</Button>
-                <Typography  style={{ color: 'black',width:'80%',justifyContent:'flex-end',display:'flex'}}>
-                  <p>{`people have applied`}</p>
+                <Typography  style={{ color: 'black',width:'30%',justifyContent:'flex-end',display:'flex'}}>
+                  <p>{`0 people have applied`}</p>
                 </Typography>
               </Footer>
+
+
+              <TextField
+                style={{marginTop:'2%' ,  width:'60%'}}
+                margin="dense"
+                label="sendComment"
+                fullWidth
+                variant="standard"
+                value={content}
+                onChange={(e)=>setContent(e.target.value)}
+              />
+              <img src={Send} onClick={handleComment} className='send'/>
+              {/* <div className='comment-container'>
+                {requestComment.length ?
+                  <div className='requestComment-container'>
+                      {requestComment.map((post , i) => (
+                        <div className='requestComment-post' key={i} id={`pid-${i}`}>
+                            <span className='className'>{post.requestId}</span>
+                            <span className='classCode'>{post.userId}</span>
+                            <span className='classNumber'>{post.content}</span>
+                        </div>
+                      ))}
+                  </div> : <div></div>
+                }
+              </div> */}
+              
+              
             </ContentBox>
           </>
           }
         </Wrapper>
-        // <Wrapper>
-        //   {/* {requestData === null ?
-        //   <div></div>:
-        //   <div className='page'>
-        //     <div className='logoDiv'>
-        //           <img className='logo' src={Logo} alt="Welcome to Teamder!" onClick={() => navigate(`/AllPosts`)} />
-        //     </div>
-        //     
-        //     <Title>
-        //       <Typography  style={{ color: 'white',width:'20%' ,outline:'solid',justifyContent:'center',display:'flex'}}>
-        //         <p>{requestData.nowPeople}/{requestData.maxPeople}<br></br>現有組員/需要組員</p>
-        //       </Typography>
-        //       <Typography variant="h4" style={{ color: 'white',width:'80%',justifyContent:'center',display:'flex'}}>
-        //           <h1>{requestData.title}</h1>
-        //       </Typography>
-        //     </Title>
-        //     <ContentBox>
-        //       <Row>
-        //         <ItemDiv>
-        //             <Typography  style={{ color: '#212121' , fontSize: '30px' }}>Class Name:</Typography>
-        //         </ItemDiv>
-        //         <ContextDiv>
-        //             <Typography  style={{ color: '#212121' , fontSize: '30px'}}>{requestData.className}</Typography>
-        //         </ContextDiv>
-        //       </Row>
-        //       <Row>
-        //         <ItemDiv>
-        //             <Typography  style={{ color: '#212121'  , fontSize: '30px'}}>課號:</Typography>
-        //         </ItemDiv>
-        //         <ContextDiv>
-        //             <Typography  style={{ color: '#212121' , fontSize: '30px' }}>{requestData.classCode}</Typography>
-        //         </ContextDiv>
-        //       </Row>
-        //       <Row>
-        //         <ItemDiv>
-        //             <Typography  style={{ color: '#212121' , fontSize: '30px' }}>流水號:</Typography>
-        //         </ItemDiv>
-        //         <ContextDiv>
-        //             <Typography  style={{ color: '#212121'  , fontSize: '30px'}}>{requestData.classNumber}</Typography>
-        //         </ContextDiv>
-        //       </Row>
-        //       <ContextBox>
-        //         <Typography  style={{ color: '#212121' }} className='cccc'>
-        //           <p className='ccc'>{requestData.context}</p>
-        //         </Typography>
-        //       </ContextBox>
-        //       <Footer>
-        //         <Button variant='contained' color='primary' onClick={()=>{handleApply()}}>apply</Button>
-        //         <Typography  style={{ color: 'black',width:'80%',justifyContent:'flex-end',display:'flex'}}>
-        //           <p>{`people have applied`}</p>
-        //         </Typography>
-        //       </Footer>
-        //     </ContentBox>
-        //   {/* </div>
-        //   } */}
-        // </Wrapper>
     )
 }
 

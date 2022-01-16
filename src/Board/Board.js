@@ -18,14 +18,16 @@ const Span = styled.span`
     width: 10%;
     outline:solid
     text-align: center;
-    font-size:26px;
+    font-size:16px;
+    overflow:hidden;
 `
 const TitleDiv = styled.span`
     display:flex;
     width: 10%;
     text-align: left;
     overflow:hidden;
-    font-size:26px;
+    font-size:16px;
+    overflow:hidden;
 `
 const ContextDiv = styled.div`
     display:flex;
@@ -33,7 +35,7 @@ const ContextDiv = styled.div`
     text-align: left;
     word-wrap:break-word;
     overflow:hidden;
-    font-size:26px;
+    font-size:16px;
 `
 function Board({navigate , createRequestDialogOpen}) {
     const [posts , setPosts] = useState([])
@@ -68,29 +70,4 @@ function Board({navigate , createRequestDialogOpen}) {
         </div>
     )
 }
-
-
-
-{/* <div className='board-container'></div> 
-{posts.length ?
-    <div className='requests-container'>
-        <div className='nameBar'>
-            <span className='name'>課名</span>
-            <span className='code'>流水號</span>
-            <span className='number'>課程代碼</span>
-            <span className='people'>人數</span>
-        </div>
-        {posts.map((post , i) => (
-            <div className='request-post' key={i} id={`pid-${i}`} onClick={() => navigate(`/request/${post._id}`)}>
-                <span className='className'>{post.className}</span>
-                <span className='classCode'>{post.classCode}</span>
-                <span className='classNumber'>{post.className}</span>
-                <span className='cc'>{post.context}</span>
-                <span className='classPeople'>{post.nowPeople}/{post.maxPeople}</span>
-            </div>
-        ))}
-    </div> : <div></div>
-}
-</div> */}
-
 export default Board;

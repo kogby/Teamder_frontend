@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+
 const Row = styled.div`
     display: flex;
     flex-direction: row;
@@ -7,25 +8,30 @@ const Row = styled.div`
     justify-content: flex-start;
     width: 90%;
     padding: 1em;
-    outline:solid;
-  `;
+    margin: 2em;
+    border-radius: 10%;
+    background-color:#BFFFFF;
+    opacity: 1;
+`   
 const Span = styled.span`
-    display:flex;
-    width: 10%;
-    outline:solid
-    text-align: center;
+  display:flex;
+  width: 10%;
+  outline:solid
+  text-align: center;
+  font-size:16px;
+  overflow:hidden;
 `
 const TitleDiv = styled.span`
     display:flex;
     width: 10%;
     text-align: left;
+    font-size:16px;
     overflow:hidden;
 `
 const ContextDiv = styled.div`
     display:flex;
     width: 60%;
-    outline:solid;
-    margin:3px;
+    font-size:16px;
     text-align: left;
     word-wrap:break-word;
     overflow:hidden;

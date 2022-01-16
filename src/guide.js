@@ -6,6 +6,7 @@ import Login from './Login/login'
 import AllPosts from './Board/AllPosts'
 import { Routes, Route,useNavigate} from 'react-router-dom'
 import { Alert } from '@mui/material'
+import SearchPage from './Search/SearchPage'
 const LOCALSTORAGE_KEY = "save-me";
 function Guide(props) {
     const savedMe = localStorage.getItem(LOCALSTORAGE_KEY);
@@ -37,6 +38,7 @@ function Guide(props) {
             <Route path="/user/:userId" element={<PersonalPage navigate={navigate} myId={myId} displayAlert={displayAlert}/>} />
             <Route path="/AllPosts" element={<AllPosts navigate={navigate} myId={myId} displayAlert={displayAlert}/>} />
             <Route path="/request/:requestId" element={<RequestPage navigate={navigate} myId={myId} displayAlert={displayAlert}/>} />
+            <Route path="/Search" element={<SearchPage navigate={navigate}/>}/>
         </Routes>
       </div>
     )

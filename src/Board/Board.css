@@ -27,26 +27,46 @@
 }
 
 .name {
-    margin-left: 4%;
-    width: 10%
+    margin-left: 1%;
+    width: 9%;
+    text-align: center;
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+   
     
 }
 
 .code {
-    margin-left:  10%;
-    width: 50px;
+    display: inline-block;
+    margin-left: 3.5%;
+    width: 9%;
+    text-align: center;
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
 }    
 
 .number {
-    margin-left: 10%;
-    width: 50px;
+    display: inline-block;
+    margin-left: 5%;
+    width: 9%;
+    text-align: center;
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
     
 }
 
 .people {
-    margin: auto;
-    position: relative;
-    right: -55%;
+    margin-left: 53%;
+    text-align: center;
 }
 
 .className {

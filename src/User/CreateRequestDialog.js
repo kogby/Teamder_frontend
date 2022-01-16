@@ -35,7 +35,7 @@ export default function CreateRequestDialog({myId,createRequestDialogOpen,setCre
           nowPeople,
           context
       });
-      displayAlert("success" , "Edit personal information success!");
+      displayAlert("success" , "Create request success!");
       setTimeout(() => {
         handleClose();
       }, 300)

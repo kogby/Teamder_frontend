@@ -1,6 +1,6 @@
 .page {
     margin-top: 5%;
-    width: 90%;
+    width: 70%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,7 +11,7 @@
 
 .logoDiv {
     display: flex;
-    width: 250px;
+    width: 100px;
     position: relative;
     left: -40%;
     top: 10px;
@@ -33,7 +33,7 @@
     
     position: relative;
     right: -38%;
-    top: -100px;
+    top: -50px;
     text-align:center;
     line-height: 100px;
 }

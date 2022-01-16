@@ -29,34 +29,38 @@ const PersonalInformation = ({userData}) => {
             <div style={{width:'100%',display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
                 <Row>
                     <ItemDiv>
-                        <Typography  style={{ color: '#212121' }}>User-id:</Typography>
+                        <Typography variant="h4" style={{ color: '#212121' }}>
+                            <p>Name:</p>
+                        </Typography>
                     </ItemDiv>
                     <ContextDiv>
-                        <Typography  style={{ color: '#212121' }}>{userData.userId}</Typography>
+                        <Typography variant="h4" style={{ color: '#212121' }}>
+                            <p>{userData.name}</p>
+                        </Typography>
                     </ContextDiv>
                 </Row>
                 <Row>
                     <ItemDiv>
-                        <Typography  style={{ color: '#212121' }}>Name:</Typography>
+                        <Typography variant="h4" style={{ color: '#212121' }}>
+                            <p>Email:</p>
+                        </Typography>
                     </ItemDiv>
                     <ContextDiv>
-                        <Typography  style={{ color: '#212121' }}>{userData.name}</Typography>
+                        <Typography variant="h4" style={{ color: '#212121' }}>
+                            <p>{userData.email}</p>
+                        </Typography>
                     </ContextDiv>
                 </Row>
                 <Row>
                     <ItemDiv>
-                        <Typography  style={{ color: '#212121' }}>Email:</Typography>
+                        <Typography variant="h4" style={{ color: '#212121' }}>
+                            <p>FB Link:</p>
+                        </Typography>
                     </ItemDiv>
                     <ContextDiv>
-                        <Typography  style={{ color: '#212121' }}>{userData.email}</Typography>
-                    </ContextDiv>
-                </Row>
-                <Row>
-                    <ItemDiv>
-                        <Typography  style={{ color: '#212121' }}>FB Link:</Typography>
-                    </ItemDiv>
-                    <ContextDiv>
-                        <Typography  style={{ color: '#212121' }}>{userData.fbLink}</Typography>
+                        <Typography variant="h4" style={{ color: '#212121' }}>
+                            <p>{userData.fbLink}</p>
+                        </Typography>
                     </ContextDiv>
                 </Row>
             </div>

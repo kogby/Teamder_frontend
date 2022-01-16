@@ -66,9 +66,10 @@ const UserIconDiv = styled.div`
   height: 10vh;
   display:flex;
   margin: 1em;
-  '&:hover': {
-    outline:'solid',
-  },  
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  color:white
 `
 const imgStyle = {
   width: '80%',
@@ -76,8 +77,9 @@ const imgStyle = {
 }
 
 const TabListStyle = {
-  backgroundColor: 'white',
-  opacity: "0.8"
+  backgroundColor: '#B959FF',
+  opacity: "0.8",
+
 }
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -169,7 +171,7 @@ const PersonalPage = (props)=>{
             }
           </Header>
           <TabWrapper>
-            <Tabs variant="fullWidth" style={TabListStyle} value={value} onChange={handleTabsChange}>
+            <Tabs variant="fullWidth" style={TabListStyle} value={value} onChange={handleTabsChange} indicatorColor="primary">
               <Tab label="Personal Information" {...a11yProps(0)} />
               <Tab label="History Request" {...a11yProps(1)} />
             </Tabs>

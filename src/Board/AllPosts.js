@@ -4,7 +4,7 @@ import Logo from '../Image/Logo.png'
 import './AllPosts.css'
 import Wrapper from '../Component/Wrapper';
 import User from '../Image/user.png'
-import Search from './Search'
+import Search from '../Search/Search'
 import instance from '../instance';
 import CreateRequestDialog from '../User/CreateRequestDialog';
 import styled from 'styled-components';
@@ -32,7 +32,20 @@ const UserIconDiv = styled.div`
   flex-direction:column;
   justify-content:center;
   align-items:center;
+  color:white;
 `
+const ContentBox = styled.div`
+    display:flex;
+    flex-direction: column;
+    width: 30%;
+    height: 60%;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1em;
+    border-radius: 10%;
+    background-color: white;
+    opacity: 0.8;
+`;
 const imgStyle = {
   width: '80%',
   height: 'auto', 
@@ -56,14 +69,14 @@ function AllPosts(props) {
               <LogoDiv>
                 <img  src={Logo} alt="Welcome to Teamder!" onClick={() => props.navigate(`/AllPosts`)} styled={imgStyle}/>
               </LogoDiv>
-              <Search setCreateRequestDialogOpen={setCreateRequestDialogOpen}/>
+              <Search setCreateRequestDialogOpen={setCreateRequestDialogOpen} navigate={props.navigate}/>
               {userData === null ?
                 <div></div>: 
                 <UserIconDiv>
                     <Button
                         size="large"
                         variant='contained' 
-                        color='inherit'
+                        color='primary'
                         onClick={()=>{setCreateRequestDialogOpen(true)}}    
                     >新增貼文</Button>
                     <img src={User} alt="user" onClick={() => props.navigate(`/user/${props.myId}`)} style={imgStyle}/>
@@ -72,9 +85,6 @@ function AllPosts(props) {
               }
             </Header>
             <div className='page'>
-                <div className='new'>
-                    
-                </div>
                 <Board navigate={props.navigate} createRequestDialogOpen={createRequestDialogOpen}/>
                 <CreateRequestDialog
                     myId = {props.myId}
