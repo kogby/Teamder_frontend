@@ -1,7 +1,5 @@
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import React from 'react';
 import styled from 'styled-components';
-import ContentBox from '../Component/ContentBox';
 const Row = styled.div`
     display: flex;
     flex-direction: row;

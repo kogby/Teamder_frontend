@@ -4,7 +4,7 @@ const ContentBox = styled.div`
     flex-direction: column;
     width: 30%;
     height: 60%;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     padding: 1em;
     border-radius: 10%;
