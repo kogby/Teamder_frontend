@@ -4,7 +4,7 @@ import RequestPage from './Request/RequestPage'
 import SignUp from './SignUp/signUp'
 import Login from './Login/login'
 import AllPosts from './Board/AllPosts'
-import { Routes, Route,useNavigate} from 'react-router-dom'
+import { Routes, Route, useNavigate} from 'react-router-dom'
 import { Alert } from '@mui/material'
 import SearchPage from './Search/SearchPage'
 const LOCALSTORAGE_KEY = "save-me";
@@ -29,11 +29,17 @@ function Guide(props) {
       setAlertSeverity(severity);
       setAlertMessage(message);
     }
+    const requireAuth = () => {
+      console.log("good");
+      if(!hasSignIn){
+        navigate('/');
+      }
+    }
     return (
       <div className="wrapper">
         <Alert severity = {alertSeverity} onClose={handleOnClose} style={showAlert ? {display:'flex'} : {display:'none'}}>{alertMessage}</Alert>
         <Routes>
-            <Route exact path="/" element={<Login navigate={navigate} setMyId={setMyId} setHasSignIn={setHasSignIn} displayAlert={displayAlert}/>} />
+            <Route exact path="/" element={<Login navigate={navigate} setMyId={setMyId} setHasSignIn={setHasSignIn} displayAlert={displayAlert}/>}></Route>
             <Route path="/signUp" element={<SignUp navigate={navigate} displayAlert={displayAlert}/>} />
             <Route path="/user/:userId" element={<PersonalPage navigate={navigate} myId={myId} displayAlert={displayAlert}/>} />
             <Route path="/AllPosts" element={<AllPosts navigate={navigate} myId={myId} displayAlert={displayAlert}/>} />
